@@ -1,27 +1,44 @@
 // tb.v
-// Starter testbench template -- YOU complete this file.
+// Testbench for the parameterized LUT ROM.
+// Sweeps sel through all DEPTH addresses and prints dout.
 
 module tb;
 
-  // TODO: declare the inputs and outputs
+  // Match the DUT's defaults; change here if you re-parameterize.
+  localparam WIDTH = 8;
+  localparam DEPTH = 4;
 
-  // TODO: instantiate DUT here
+  // Inputs / outputs
+  reg  [$clog2(DEPTH)-1:0] t_sel;
+  wire [WIDTH-1:0]         t_dout;
 
-  // Waveform dump configuration (DO NOT CHANGE)
+  // DUT instantiation
+  lut #(.WIDTH(WIDTH), .DEPTH(DEPTH)) uut (
+    .sel  (t_sel),
+    .dout (t_dout)
+  );
+
+  // Waveform dump configuration
   string vcd_file;
   initial begin
     if ($value$plusargs("vcd=%s", vcd_file)) begin
       $dumpfile(vcd_file);
-      $dumpvars(0, DUT);
+      $dumpvars(0, tb);
     end
   end
 
+  integer k;
   initial begin
-    // TODO: apply different input combinations
-
+    t_sel = 0;
+    for (k = 0; k < DEPTH; k = k + 1) begin
+      t_sel = k[$clog2(DEPTH)-1:0];
+      #5;
+    end
+    $finish;
   end
 
   initial
-    $monitor($time, " I0=%b I1=%b S=%b | Y=%b", t_i0, t_i1, t_s, t_y); // change as required
+    $monitor("t=%0t  sel=%0d | dout=%0d (0x%0h)",
+             $time, t_sel, t_dout, t_dout);
 
 endmodule
