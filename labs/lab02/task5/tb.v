@@ -8,7 +8,7 @@ module tb;
   reg  [3:0] t_a, t_b;
   reg        t_op;
   wire [4:0] t_result;
-
+ 
   alu uut (
     .a      (t_a),
     .b      (t_b),
