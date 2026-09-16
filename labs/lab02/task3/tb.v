@@ -7,7 +7,7 @@ module tb;
 
   // Inputs / outputs
   reg  [1:0] t_a, t_b;
-  wire       t_gt, t_lt, t_eq;
+  wire       t_gt, t_lt, t_eq; 
 
   // DUT instantiation
   comp2 uut (
