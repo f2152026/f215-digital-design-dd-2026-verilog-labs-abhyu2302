@@ -7,7 +7,7 @@
 // respond correctly to inputs that change faster than the delay.
 
 module tb;
-
+ 
   reg  t_a, t_b;
   wire y_df, y_before, y_intra;
 
@@ -21,7 +21,7 @@ module tb;
     if ($value$plusargs("vcd=%s", vcd_file)) begin
       $dumpfile(vcd_file);
       $dumpvars(0, tb);
-    end
+    end 
   end
 
   // Each gate has a #5 delay somewhere in its own implementation. Toggle
